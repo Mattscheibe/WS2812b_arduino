@@ -1,0 +1,57 @@
+WS2812B Command Reference
+=========================
+
+Including this library
+~~~~~~~~~~~~~~~~~~~~~~
+
+  #include <WS2812b.h>
+
+
+Initialisation (needs to be done at the beginning of every programming using this library, before void(setup) and void(loop).
+~~~~~~~~~~~~~~
+
+  WS2812b led(w,h,t,p); // (Width,Hight,Type,Pin No. --> for Type refer to WS2812b.h or to WIRING.txt)
+
+example:
+
+  WS2812b l1(10,12,6,2); // 10 columns, 12 rows, type 6 (starting point upper right side, short wiring), pin "D2" on arduino.
+  
+If more than one strand is being use, WS2812b has to be called several times in order to attach each strand to its port pin, for example:
+  
+  WS2812b l2(1,1,1,10); // second strand (single led) attached to pin "D10".
+
+Commands: (can use standard color values, e.g. as indicated by image processing or color picker tools, and standard indexing)
+~~~~~~~~
+
+a) Setting colors:
+
+  l1.setR(row,column,color); // color from 0x00 to 0xFF, for red
+  l1.setG(row,column,color); // dito for green
+  l1.setB(row,column,color); // dito for blue
+
+  l1.setRGB(row,column,color); // color from 0x000000 to 0xFFFFFF using scheme 0xrrggbb, will set overall color of pixel
+
+b) Getting color values:
+
+  l1.getR(row,column); // return color value for red channel of pixel addressed, range 0x00 to 0xFF
+  l1.getG(row,column); // dito for green
+  l1.getB(row,column); // dito for blue
+
+  l1.getRGB(row,column); // dito for overall color value, range 0x000000 to 0xFFFFFF using scheme 0xrrggbb
+
+c) Display all pixels of a strand with color values set before for this strand:
+
+  l1.showLEDs();
+
+d) Turn off all pixels of a strand (set and display at the same time)
+
+  l1.clearLEDs();
+
+e) Adjust maximum brightness of a strand (automatically refers to all its pixels when calling showLEDs()):
+
+  l.setMaxBrightness(maxIntensity); // will limit colors to range 0 to maxIntensity; maxIntensity may be any between 0x00 and 0xFF
+
+If set to 0xFF, all color values will be displayed unchanged. In all other cases, colors will be dimmed to fit into the range.
+Lower intensities draw less current. This may be helpful in case of longer strands and weaker power supplies, or while prototyping.
+
+setMaxBrightness() will set strand object's variable named maxBrightnessLEDs.

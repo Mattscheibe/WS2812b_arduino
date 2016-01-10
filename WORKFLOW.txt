@@ -1,0 +1,39 @@
+w21812b development of a new program
+====================================
+
+Option No. 1 (Arduino IDE)
+--------------------------
+
+0. Register this library with the standard means to Arduino IDE.
+
+1. In Arduino IDE, open a new project.
+   As a first command, include the library writing
+   
+     #include <WS2812b.h>
+    
+   Save file with a filename of the form PROJECT'S_IRECTORY_NAME.ino
+
+2. Write the rest your program and test it, compiling and / or uploading it regularily.
+   (Make shure your programmer's port settings are correct for uploading.)
+
+Option No. 2 (using a bash-shell on a computer running Linux)
+-------------------------------------------------------------
+
+0. An appropriate Makefile is added in Makefile_Template. Edit it to set up your favorite editor.
+
+1. Copy this Makefile to the directory in which you want to write the new program.
+
+2. Run the following command:
+   
+     echo -e "#include <WS2812b.h>\nvoid setup() {\n}\nvoid loop() {\n}\n" > $(basename $(pwd)).ino
+     
+3. Type "make make" and set up your type of board.
+
+   (If using a hardware programmer, also set this up. If using an arduino board directly, without a hardware
+   programmer, all port settings will be made automagically.)
+
+4. Type "make edit" and start editing your program.
+
+5. Test your program by typing "make" (compilation only) or "make prog" (compilation and transfering to chip).
+
+Repeat steps 4. and 5. until finished.

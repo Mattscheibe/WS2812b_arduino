@@ -1,0 +1,25 @@
+WS2812b example program
+=======================
+
+This example program will have one WS2812B LED connected to output pin D2 blinking.
+
+#include <WS2812b.h> // include this library
+WS2812b led(1,1,1,2); // 1 column, 1 row (i.e. 1 LED), type 1 (standard if no matrix), arduino pin "D2"
+
+void setup() {
+  led.setMaxBrightness(10); // low, good for the eyes
+}
+
+void loop() {
+  led.setRGB(0,0,0xFF9922);showLEDs(); // "on" -  some color (note that brightness was reduced, though)
+  delay(200);
+  led.setRGB(0,0,0x000000);showLEDs(); // "off" - might as well use led.clearLEDs();
+  delay(500);
+}
+
+----------------------------------------------------------------------------------
+
+If working from command line, not using Arduino-IDE, deliberately use provided Makefile. (Before copying, edit Makefile and change editor, if needed.)
+o Type "make edit" to edit program file.
+o Type "make prog" to transfer program to board.
+If reluctant to typing make-commands, register "prog"-target to your editor or bind it to keypress.
