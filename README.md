@@ -19,69 +19,42 @@ User interface is simplified and unified for all platforms.
 
 ## Commands
 
-**WS2812b led(width,height,type,arduino_pin);**
+```
+WS2812b led(width,height,type,arduino_pin); // initialize strand
+                                            // for single linear strands set width to length of strand and height to 1
+                                            // for type cf. WS2812b.h or WIRING.txt
+                                            // arduino_pin is e.g. "12" for pin "D12"
+                                            // for more than one strand repeat command while changing "led" to a different name
+Example:
 
-* initialize strand
-* for single linear strands set width to length of strand and height to 1
-* for type cf. WS2812b.h or WIRING.txt
-* arduino_pin is e.g. "12" for pin "D12"
-* for more than one strand repeat command while changing "led" to a different name
+WS2812b l1(10,12,6,12);        // 10 columns, 12 rows, type 6 (starting point upper right side, short wiring), pin "D12" on arduino
+  
+l1.setR(row,column,color);     // color from 0x00 to 0xFF, for red
 
-*Example:*
+l1.setG(row,column,color);     // dito for green
 
-**WS2812b l1(10,12,6,12);** // 10 columns, 12 rows, type 6 (starting point upper right side, short wiring), pin "D12" on arduino
+l1.setB(row,column,color);     // dito for blue
 
+l1.setRGB(row,column,color);   // color from 0x000000 to 0xFFFFFF using scheme 0xrrggbb, will set overall color of pixel
+                               // appropriate values may be taken from an image processing or color picker tool
 
-**l1.setR(row,column,color);**
+l1.getR(row,column);           // return color value for red channel of pixel addressed, range 0x00 to 0xFF
 
-* *color* from 0x00 to 0xFF, for red
+l1.getG(row,column);           // dito for green
 
-**l1.setG(row,column,color);**
+l1.getB(row,column);           // dito for blue
 
-* dito for green
+l1.getRGB(row,column);         // dito for overall color value, range 0x000000 to 0xFFFFFF using scheme 0xrrggbb
 
-**l1.setB(row,column,color);**
+l1.showLEDs();                 // will display all pixels of strand l1 (with the colors that have been set before)
 
-* dito for blue
+l1.clearLEDs();                // reset all color values of strand l1 to 0 and display it immediately
 
-**l1.setRGB(row,column,fullcolor);**
-
-* set all three color values at once
-* full color ranges from 0x000000 to 0xFFFFFF
-* values can be taken from image processing or color picker tools
-
-**l1.getR(row,column);**
-
-* return color value for red channel of pixel addressed
-* possible range from 0x00...0xFF
-
-**l1.getG(row,column);**
-
-* dito for green
-
-**l1.getB(row,column);**
-
-* dito for blue
-
-**l1.getRGB(row,column);**
-
-* read-out function for full color value of addressed pixel
-* possible range from 0x000000 to 0xFFFFFF
-
-**l1.showLEDs();**
-
-* will display all pixels of strand l1 (with the colors that have been set before)
-
-**l1.clearLEDs();**
-
-* reset all color values or strand l1 and display a "blank screen"
-
-**l1.setMaxBrightness(maxValue);**
-
-* used for dimming (good to the eyes!)
-* maxValue ranges from 0x00 (full dimming) to 0xFF (no dimming)
-* will usually be called once at the beginning of the program
-* but can also be called several times for special effects
-* good values for maxValue while prototyping are 3...10
-* will change intensity of display by limiting color resolution
-* will effect all subsequent calls to l1.showLEDs()
+l1.setMaxBrightness(maxValue); // used for dimming (good to the eyes!)
+                               // maxValue ranges from 0x00 (full dimming) to 0xFF (no dimming)
+                               // will usually be called once at the beginning of the program 
+                               // but can also be called several times for special effects
+                               // good values for maxValue while prototyping are 3...10
+                               // will change intensity of display by limiting color resolution
+                               // will effect all subsequent calls to l1.showLEDs()
+```
